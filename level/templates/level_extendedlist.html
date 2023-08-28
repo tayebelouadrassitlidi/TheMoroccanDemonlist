@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <title>Main List</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
+
+    .card{
+        height: 200px;
+        width: auto;
+        max-width: 850px;
+        margin: auto;
+        margin-top: 30px;
+        border-radius: 25px;
+        background: white;
+        box-shadow: 0px 5px 5px grey;
+    }
+    .inner-part{
+        display: flex;
+        height: 360px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 25px;
+    }
+    .inner-part .img{
+        height: 130px;
+        width: auto;
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 2px 3px 15px;
+    }
+    .img img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        opacity: 0;
+        transition: .6s;
+    }
+    .inner-part .img-1{
+        opacity: 1;
+        transition-delay: .2s;
+    }
+    .content{
+        padding: 0 0 0 35px;
+        width: 530px;
+        margin-left: 50px;
+        opacity: 0;
+        transition: .6s;
+    }
+    .inner-part .content-1{
+        opacity: 1;
+        margin-left: 0px;
+        z-index: 100;
+        transition-delay: .3s;
+    }
+    .content .title{
+        font-size: 25px;
+        font-weight: 700;
+        color: #0d0925;
+        margin-bottom: 20px;
+    }
+    .content .text{
+        color: #4e4a67;
+        font-size: 17px;
+        margin-bottom: 20px;
+        line-height: 1.5em;
+        text-align: justify;
+    }
+    .content button{
+        display: inline-flex;
+        padding: 5px 10px;
+        border: none;
+        font-size: 16px;
+        color: #fff0e6;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border-radius: 50px;
+        cursor: pointer;
+        outline: none;
+        border: 1px solid black;
+        background: black;
+    }
+    .content button:hover{
+        background: white;
+        color: black;
+    }
+
+    .secondary-navbar {
+        background-color: #f2f2f2;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 500px;
+        margin-right: 500px;
+    }
+
+    .navbar-links {
+        display: inline-block;
+    }
+
+    .navbar-link {
+        flex: 1;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-link a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .title a{
+        text-decoration: none;
+        color: black;
+    }
+    </style>
+
+    <nav class="secondary-navbar border">
+            <div class="navbar-link"><a href="{% url 'level_mainlist' %}">Main List</a></div>
+            <div class="navbar-link"><a href="{% url 'level_extendedlist' %}">Extended List</a></div>
+            <div class="navbar-link"><a href="{% url 'level_legacylist' %}">Legacy List</a></div>
+    </nav>
+
+
+    {% for level in extended_levels|dictsort:"ranking" %}
+    <div class="card">
+        <div class="inner-part">
+            <label for="img" class="img">
+                <a href="{{ level.youtube_link }}" target="_blank"><img class="img-1" src="{{ level.youtube_thumbnail }}"></a>
+            </label>
+            <div class="content content-1">
+                <div class="title"><a href="{% url 'level_detail' level_id=level.id %}">#{{ level.ranking }} - {{ level.name }}</a></div>
+                <div class="text"><strong>Published by:</strong> {{ level.publisher }}</div>
+                <button onclick="copyLevelID('{{ level.levelid }}')">Copy Level ID</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

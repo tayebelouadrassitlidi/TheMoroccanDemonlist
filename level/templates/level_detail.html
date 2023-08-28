@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title>Level Detail</title>
+</head>
+<body>
+    <h1>{{ level.name }} Details</h1>
+    <p>Level ID: {{ level.levelid }}</p>
+    <p>Duration: {{ level.duration }}</p>
+    <p>Object Count: {{ level.objectcount }}</p>
+    <p>Publisher: {{ level.publisher }}</p>
+    <p>Difficulty: {{ level.get_difficulty_display }}</p>
+    <p>Ranking: {{ level.ranking }}</p>
+    <p>Points: {{ level.points }}</p>
+    <p>Min points: {{ level.min_points }}</p>
+    <p>List percentage: {{ level.min_completion }}%</p>
+    <p>YouTube Link: <a href="{{ level.youtube_link }}">{{ level.youtube_link }}</a></p>
+
+    <h2>Records for this Level:</h2>
+    <ul>
+        {% for record in level.levelrecord_set.all reversed%}
+            <li>{{ record.player.name }} - {{ record.record_percentage }}%</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
