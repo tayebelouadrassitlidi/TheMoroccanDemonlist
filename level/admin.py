@@ -1,3 +1,4 @@
+import datetime
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
 from .models import Level
@@ -7,15 +8,18 @@ import math
 
 class CustomSortableAdminMixin(SortableAdminMixin):
     def _update_order(self, updated_items, extra_model_filters):
+        old_rankings = {}
+        for item in updated_items:
+            level = Level.objects.get(pk=item[0])
+            old_rankings[level.pk] = level.ranking
+
         super()._update_order(updated_items, extra_model_filters)
         for item in updated_items:
             level = Level.objects.get(pk=item[0])
             level.save()
+
         for level_record in level.levelrecord_set.all():
-            level_record.save()
-        for history_position in level.historyposition_set.all():
-            history_position.save()
-                
+            level_record.save()             
 
 class LevelAdmin(CustomSortableAdminMixin, admin.ModelAdmin):
     list_display = ['ranking', 'name', 'points', 'min_points', 'min_completion', 'first_victor']
