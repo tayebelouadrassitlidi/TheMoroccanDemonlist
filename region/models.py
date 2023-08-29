@@ -10,6 +10,8 @@ class Region(models.Model):
         for player in self.player_set.all():
             total_points += player.points
 
+        self.points = total_points
+        self.save(update_fields=['points'])
         return total_points
 
     def __str__(self):

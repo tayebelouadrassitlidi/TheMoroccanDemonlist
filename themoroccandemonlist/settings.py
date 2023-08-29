@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'player',
     'region',
     'levelrecord',
-    'change',
+    'listchange',
     'django_extensions',
     'ordered_model',
     'adminsortable2',
