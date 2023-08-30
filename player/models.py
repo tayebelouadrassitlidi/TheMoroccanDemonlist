@@ -16,8 +16,6 @@ class Player(models.Model):
     def __str__(self):
         return f"{self.name} - {round((self.points), 2)} points - {self.region.name}"
     
-    
-    
 @receiver(post_save, sender=Player)
 @receiver(post_save, sender='levelrecord.LevelRecord')
 def update_player_points(sender, instance, **kwargs):

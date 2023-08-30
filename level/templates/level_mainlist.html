@@ -128,7 +128,6 @@
             <div class="navbar-link"><a href="{% url 'level_legacylist' %}">Legacy List</a></div>
     </nav>
 
-
     {% for level in main_levels|dictsort:"ranking" %}
     <div class="card">
         <div class="inner-part">
@@ -138,9 +137,33 @@
             <div class="content content-1">
                 <div class="title"><a href="{% url 'level_detail' level_id=level.id %}">#{{ level.ranking }} - {{ level.name }}</a></div>
                 <div class="text"><strong>Published by:</strong> {{ level.publisher }}</div>
-                <button onclick="copyLevelID('{{ level.levelid }}')">Copy Level ID</button>
+                <button class="copy-button" data-level-id="{{ level.levelid }}">Copy Level ID</button>
             </div>
         </div>
     </div>
     {% endfor %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var copyButtons = document.querySelectorAll(".copy-button");
+    
+            copyButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var levelId = button.getAttribute("data-level-id");
+                    copyToClipboard(levelId);
+                });
+            });
+        });
+    
+        function copyToClipboard(text) {
+            var textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Level ID copied to clipboard: " + text);
+        }
+    </script>
+
 {% endblock %}

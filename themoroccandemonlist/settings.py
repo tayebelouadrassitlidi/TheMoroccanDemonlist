@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'levelrecord',
     'listchange',
     'django_extensions',
-    'ordered_model',
     'adminsortable2',
 ]
 

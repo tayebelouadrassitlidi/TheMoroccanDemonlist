@@ -2,23 +2,22 @@ from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
 from .models import Level
 import math
+from django.db.models.signals import pre_save, post_save
+from django.dispatch import receiver
 
 # Register your models here.
 
 class CustomSortableAdminMixin(SortableAdminMixin):
     def _update_order(self, updated_items, extra_model_filters):
-        old_rankings = {}
-        for item in updated_items:
-            level = Level.objects.get(pk=item[0])
-            old_rankings[level.pk] = level.ranking
 
+        # Call the super to perform the update
         super()._update_order(updated_items, extra_model_filters)
+
         for item in updated_items:
             level = Level.objects.get(pk=item[0])
             level.save()
-
-        for level_record in level.levelrecord_set.all():
-            level_record.save()             
+            for level_record in level.levelrecord_set.all():
+                level_record.save()
 
 class LevelAdmin(CustomSortableAdminMixin, admin.ModelAdmin):
     list_display = ['ranking', 'name', 'points', 'min_points', 'min_completion', 'first_victor']
