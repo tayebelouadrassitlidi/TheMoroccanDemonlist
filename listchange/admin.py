@@ -15,10 +15,7 @@ class ListChangeAdmin(admin.ModelAdmin):
     
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "level":
-            return CharField(
-                choices=[(level.id, level.name) for level in Level.objects.all()],
-                max_length=255,
-            )
+            return CharField(max_length=255)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(ListChange, ListChangeAdmin)
