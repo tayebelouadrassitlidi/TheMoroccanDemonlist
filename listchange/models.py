@@ -11,7 +11,7 @@ class ListChange(models.Model):
     #move = 'Move'
     raise_ = 'Raise'
     lower = 'Lower'
-    #swap = 'Swap'
+    swap = 'Swap'
     remove = 'Remove'
     list_requirement = 'List requirement'
 
@@ -20,7 +20,7 @@ class ListChange(models.Model):
         #('Move', 'Move'),
         ('Raise', 'Raise'),
         ('Lower', 'Lower'),
-        #('Swap', 'Swap'),
+        ('Swap', 'Swap'),
         ('Remove', 'Remove'),
         ('List requirement', 'List requirement'),
     ]
@@ -44,6 +44,8 @@ def populate_description(sender, instance, **kwargs):
         instance.description = f"{instance.level.name} has been placed at #{instance.placement}"
     #elif instance.change_type == ListChange.move:
         #instance.description = f"{instance.level.name} has been moved to #{instance.placement}"
+    elif instance.change_type == ListChange.swap:
+        instance.description = f"{instance.level.name} has been swapped with #{instance.swap_with.name} at #{instance.placement}"
     elif instance.change_type == ListChange.raise_:
         instance.description = f"{instance.level.name} has been raised to #{instance.placement}"
     elif instance.change_type == ListChange.lower:
