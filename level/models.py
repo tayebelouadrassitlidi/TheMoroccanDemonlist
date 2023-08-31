@@ -1,8 +1,7 @@
 from django.db import models
 import math
-from django.contrib import admin
 from django.core.validators import MaxValueValidator
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.

@@ -6,8 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class LevelRecord(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.PROTECT)
-    level = models.ForeignKey(Level, on_delete=models.PROTECT)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, null=True)
     record_percentage = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(100)])
     record_video_link = models.URLField(blank=True)
     

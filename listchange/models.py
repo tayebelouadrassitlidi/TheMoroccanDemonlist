@@ -26,41 +26,62 @@ class ListChange(models.Model):
         ('List requirement', 'List requirement'),
     ]
 
-    level = models.ForeignKey(Level, on_delete=models.PROTECT)
-    swap_with = models.ForeignKey(Level, related_name='swap_with', on_delete=models.PROTECT, blank=True, null=True)
+    level = models.ForeignKey(Level, on_delete=models.SET_NULL, blank=True, null=True)
+    swap_with = models.ForeignKey(Level, related_name='swap_with', on_delete=models.SET_NULL, blank=True, null=True)
     date = models.DateField()
     change_type = models.CharField(max_length=255, choices=CHANGE_TYPE, default=None)
     placement = models.PositiveIntegerField(default=0)
     description = models.CharField(max_length=255, blank=True)
-    above_level = models.ForeignKey(Level, related_name='above_level', on_delete=models.PROTECT, blank=True, null=True)
-    below_level = models.ForeignKey(Level, related_name='below_level', on_delete=models.PROTECT, blank=True, null=True)
+    above_level = models.ForeignKey(Level, related_name='above_level', on_delete=models.SET_NULL, blank=True, null=True)
+    below_level = models.ForeignKey(Level, related_name='below_level', on_delete=models.SET_NULL, blank=True, null=True)
     effect = models.CharField(max_length=255, blank=True)
 
-    def __str__(self):
-        return f"Change for Level {self.level.name} on {self.date}"
+    custom_levelname = models.CharField(max_length=100, blank=True, null=True)
+    custom_swapwith = models.CharField(max_length=100, blank=True, null=True)
+    custom_abovelevelname = models.CharField(max_length=100, blank=True, null=True)
+    custom_belowlevelname = models.CharField(max_length=100, blank=True, null=True)
+
+
     
 @receiver(pre_save, sender=ListChange)
 def populate_description(sender, instance, **kwargs):
+    if instance.level:
+        level_name = instance.level.name
+    elif instance.custom_levelname:
+        level_name = instance.custom_levelname
+    if instance.above_level:
+        abovelevel_name = instance.above_level.name
+    elif instance.custom_abovelevelname:
+        abovelevel_name = instance.custom_abovelevelname
+    if instance.below_level:
+        belowlevel_name = instance.below_level.name
+    elif instance.custom_belowlevelname:
+        belowlevel_name = instance.custom_belowlevelname
+    if instance.swap_with:
+        swapwith_name = instance.swap_with.name
+    elif instance.custom_swapwith:
+        swapwith_name = instance.customswapwith
+
     if instance.change_type == ListChange.place:
-        instance.description = f"{instance.level.name} has been placed at #{instance.placement}"
+        instance.description = f"{level_name} has been placed at #{instance.placement}"
     #elif instance.change_type == ListChange.move:
-        #instance.description = f"{instance.level.name} has been moved to #{instance.placement}"
+        #instance.description = f"{level_name} has been moved to #{instance.placement}"
     elif instance.change_type == ListChange.swap:
-        instance.description = f"{instance.level.name} has been swapped with #{instance.swap_with.name} at #{instance.placement}"
+        instance.description = f"{level_name} has been swapped with #{swapwith_name} at #{instance.placement}"
     elif instance.change_type == ListChange.raise_:
-        instance.description = f"{instance.level.name} has been raised to #{instance.placement}"
+        instance.description = f"{level_name} has been raised to #{instance.placement}"
     elif instance.change_type == ListChange.lower:
-        instance.description = f"{instance.level.name} has been lowered to #{instance.placement}"
+        instance.description = f"{level_name} has been lowered to #{instance.placement}"
     elif instance.change_type == ListChange.remove:
-        instance.description = f"{instance.level.name} has been removed"
+        instance.description = f"{level_name} has been removed"
     elif instance.change_type == ListChange.list_requirement:
-        instance.description = f"{instance.level.name}'s list requirement has been changed to #{instance.level.min_completion}"
+        instance.description = f"{level_name}'s list requirement has been changed to #{instance.level.min_completion}"
 
     if instance.above_level is not None:
-        instance.description += f", above {instance.above_level.name}"
+        instance.description += f", above {abovelevel_name}"
     if instance.below_level is not None and instance.above_level is not None:
-        instance.description += f" and below {instance.below_level.name}"
+        instance.description += f" and below {belowlevel_name}"
     if instance.below_level is not None and instance.above_level is None:
-        instance.description += f", below {instance.below_level.name}"
+        instance.description += f", below {belowlevel_name}"
 
     instance.description += "."
