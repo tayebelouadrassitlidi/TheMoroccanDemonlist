@@ -47,7 +47,7 @@ class Level(models.Model):
         super(Level, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"#{self.ranking} - {self.name}"
+        return f"{self.name}"
 
 @receiver(post_save, sender='player.Player')
 @receiver(post_save, sender='levelrecord.LevelRecord')
