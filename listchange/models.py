@@ -41,13 +41,13 @@ class ListChange(models.Model):
 @receiver(pre_save, sender=ListChange)
 def populate_description(sender, instance, **kwargs):
     if instance.change_type == ListChange.place:
-        instance.description = f"{instance.level.name} has been placed at #{instance.level.ranking}"
+        instance.description = f"{instance.level.name} has been placed at #{instance.placement}"
     elif instance.change_type == ListChange.move:
-        instance.description = f"{instance.level.name} has been moved to #{instance.level.ranking}"
+        instance.description = f"{instance.level.name} has been moved to #{instance.placement}"
     elif instance.change_type == ListChange.raise_:
-        instance.description = f"{instance.level.name} has been raised to #{instance.level.ranking}"
+        instance.description = f"{instance.level.name} has been raised to #{instance.placement}"
     elif instance.change_type == ListChange.lower:
-        instance.description = f"{instance.level.name} has been lowered to #{instance.level.ranking}"
+        instance.description = f"{instance.level.name} has been lowered to #{instance.placement}"
     elif instance.change_type == ListChange.remove:
         instance.description = f"{instance.level.name} has been removed"
     elif instance.change_type == ListChange.list_requirement:
