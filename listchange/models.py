@@ -26,7 +26,7 @@ class ListChange(models.Model):
     ]
 
     level = models.ForeignKey(Level, on_delete=models.PROTECT)
-    #swap_with = models.ForeignKey(Level, related_name='swap_with', on_delete=models.CASCADE, blank=True)
+    swap_with = models.ForeignKey(Level, related_name='swap_with', on_delete=models.PROTECT, blank=True, null=True)
     date = models.DateField()
     change_type = models.CharField(max_length=255, choices=CHANGE_TYPE, default=None)
     placement = models.PositiveIntegerField(default=0)
