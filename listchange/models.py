@@ -8,7 +8,7 @@ from level.models import Level
 class ListChange(models.Model):
 
     place = 'Place'
-    move = 'Move'
+    #move = 'Move'
     raise_ = 'Raise'
     lower = 'Lower'
     #swap = 'Swap'
@@ -17,7 +17,7 @@ class ListChange(models.Model):
 
     CHANGE_TYPE = [
         ('Place', 'Place'),
-        ('Move', 'Move'),
+        #('Move', 'Move'),
         ('Raise', 'Raise'),
         ('Lower', 'Lower'),
         #('Swap', 'Swap'),
@@ -42,8 +42,8 @@ class ListChange(models.Model):
 def populate_description(sender, instance, **kwargs):
     if instance.change_type == ListChange.place:
         instance.description = f"{instance.level.name} has been placed at #{instance.placement}"
-    elif instance.change_type == ListChange.move:
-        instance.description = f"{instance.level.name} has been moved to #{instance.placement}"
+    #elif instance.change_type == ListChange.move:
+        #instance.description = f"{instance.level.name} has been moved to #{instance.placement}"
     elif instance.change_type == ListChange.raise_:
         instance.description = f"{instance.level.name} has been raised to #{instance.placement}"
     elif instance.change_type == ListChange.lower:
