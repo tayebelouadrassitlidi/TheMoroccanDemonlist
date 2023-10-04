@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
     <title>Main List</title>
     <style>
@@ -122,10 +122,22 @@
     }
     </style>
 
-    <nav class="secondary-navbar border">
-            <div class="navbar-link"><a href="{% url 'level_mainlist' %}">Main List</a></div>
-            <div class="navbar-link"><a href="{% url 'level_extendedlist' %}">Extended List</a></div>
-            <div class="navbar-link"><a href="{% url 'level_legacylist' %}">Legacy List</a></div>
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'images/moroccan_geometry_dash.png' %}" width="32" height="32" style="margin-right: 10px;">The Moroccan Demonlist
+        </a>
+    </nav>
+
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <li class="nav-item list-unstyled">
+            <a class="nav-link" href="{% url 'level_mainlist' %}">Main List</a>
+        </li>
+        <li class="nav-item list-unstyled">
+            <a class="nav-link" href="{% url 'level_extendedlist' %}">Extended List</a>
+        </li>
+        <li class="nav-item list-unstyled">
+            <a class="nav-link" href="{% url 'level_legacylist' %}">Legacy List</a>
+        </li>
     </nav>
 
 

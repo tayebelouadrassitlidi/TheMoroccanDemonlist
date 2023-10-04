@@ -3,6 +3,9 @@ from .models import Level
 
 # Create your views here.
 
+def index(request):
+    return render(request, 'index.html')
+
 def level_mainlist(request):
     main_levels = Level.objects.filter(ranking__lte=75)
     return render(request, 'level_mainlist.html', {'main_levels': main_levels})

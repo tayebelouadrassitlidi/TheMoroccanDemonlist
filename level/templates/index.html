@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>The Moroccan Demonlist</title>
+    <meta name="description" content="Free bootstrap template Atlas">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" sizes="32x32">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'images/moroccan_geometry_dash.png' %}" width="32" height="32">
+          </a>
+    </nav>
+    <div class="jumbotron jumbotron-fluid" id="banner" style="background-image: url('static/images/screenshot.png');">
+        <div class="container text-center text-md-center">
+            <h1 data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="display-3 text-white font-weight-bold my-5">
+                The Moroccan Demonlist
+            </h1>
+            <p data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="lead text-white my-4">
+                The most trusted and up-to-date demonlist in Morocco!
+            </p>
+            <div class="row justify-content-center">
+                <a href="{% url 'level_mainlist' %}" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="button my-4 font-weight-bold atlas-cta cta-green">Main List</a>
+                <a href="{% url 'level_extendedlist' %}" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="button middle my-4 font-weight-bold atlas-cta cta-green">Extended List</a>
+                <a href="{% url 'level_legacylist' %}" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true" class="button my-4 font-weight-bold atlas-cta cta-green">Legacy List</a>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5 py-2">
+        <h2 class="text-center font-weight-bold my-5">So, what do we have?</h2>
+        <div class="row">
+            <div data-aos="fade-up" data-aos-delay="0" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
+                <img src="{% static 'images/pic1.png' %}" alt="Ranking" class="mx-auto" width="200" height="200">
+                <h4>Ranking</h4>
+                <p>The Moroccan Demonlist is the
+                    first choice when it comes to the ranking
+                    of the hardest Geometry Dash demons in
+                    Morocco!</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
+                <img src="{% static 'images/pic2.png' %}" alt="Records" class="mx-auto" width="200" height="200">
+                <h4>Records</h4>
+                <p>Each submitted record on the Moroccan 
+                    Demonlist is manually accepted or 
+                    rejected by our competent list editors!</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" class="col-md-4 text-center">
+                <img src="{% static 'images/pic3.png' %}" alt="Stats Viewer" class="mx-auto" width="200" height="200">
+                <h4>Stats Viewer</h4>
+                <p>The Moroccan Demonlist stats
+                    viewer assigns each player a score
+                    based on how
+                    many demons they've beaten!</p>
+            </div>
+        </div>
+    </div>
+	<div class="jumbotron jumbotron-fluid" id="copyright">
+        <div class="container">
+            <div class="row justify-content-center">
+            	<div class="col-md-6 text-white align-self-center text-center my-2">
+                    All rights reserved - Made by Apostorial.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script>
+      AOS.init({
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+
+</html>
